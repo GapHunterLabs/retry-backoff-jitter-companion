@@ -1,0 +1,44 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.gaphunter.retrybackoffjittercompanion</id>
+    <name>Retry Without Backoff+Jitter Companion</name>
+    <vendor>Gap Hunter Labs</vendor>
+    <description><![CDATA[
+        <p>Warning on a retry mechanism with a FIXED interval between
+        attempts instead of exponential backoff + jitter: a manual
+        <code>for</code>/<code>while</code> retry loop that
+        <code>Thread.sleep(constant)</code>s in its <code>catch</code>,
+        Spring <code>@Retryable</code> with no real exponential
+        <code>@Backoff</code>, or Resilience4j's <code>RetryConfig</code>
+        built with a fixed <code>.waitDuration(...)</code> and no
+        <code>.intervalFunction(...)</code>.</p>
+        <p>The "thundering herd" anti-pattern -- synchronized retries
+        from multiple instances of a service saturate the downstream
+        exactly at the same instant, documented in distributed-systems
+        literature (AWS Architecture Blog, Google SRE Book) as a real
+        cause of cascading availability incidents. JOptimize
+        (Marketplace, confirmed) flags only the ABSENCE of any retry on
+        an HTTP call -- this is a deeper granularity: the QUALITY of a
+        retry mechanism that already exists.</p>
+        <p>Stated honestly: v0.1 covers Spring Retry and Resilience4j
+        (known declarative forms) plus the manual
+        <code>for</code>/<code>while</code> + <code>catch</code> +
+        <code>Thread.sleep(constant)</code> pattern -- never analyzes a
+        fully custom retry implementation with none of these
+        recognizable signals.</p>
+        <p>Free. No license nags, no telemetry, no network calls.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection language="JAVA"
+            groupName="Retry Without Backoff+Jitter Companion"
+            displayName="Retry with a fixed interval, no exponential backoff"
+            enabledByDefault="true"
+            level="WARNING"
+            implementationClass="dev.gaphunter.retrybackoffjittercompanion.inspection.RetryBackoffInspection"/>
+        <notificationGroup id="Retry Without Backoff+Jitter Companion" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
