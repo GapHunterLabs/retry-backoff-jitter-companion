@@ -6,6 +6,14 @@ loop that `Thread.sleep(constant)`s in its `catch`, Spring `@Retryable`
 with no real exponential `@Backoff`, or Resilience4j's `RetryConfig`
 built with a fixed `.waitDuration(...)` and no `.intervalFunction(...)`.
 
+## Screenshots
+
+![Screenshot 1](docs/screenshots/Screenshot_1.png)
+
+![Screenshot 2](docs/screenshots/Screenshot_2.png)
+
+![Screenshot 3](docs/screenshots/Screenshot_3.png)
+
 ## Why it exists
 
 The "thundering herd" anti-pattern -- synchronized retries from
