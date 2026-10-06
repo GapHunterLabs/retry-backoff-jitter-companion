@@ -1,0 +1,11 @@
+<html>
+<body>
+Reports a retry with a fixed wait between attempts instead of exponential backoff with jitter: a manual
+<code>for</code>/<code>while</code> retry loop that calls <code>Thread.sleep(constant)</code> in its <code>catch</code>,
+Spring <code>@Retryable</code> without an exponential <code>@Backoff</code>, or a Resilience4j <code>RetryConfig</code> with a
+fixed <code>.waitDuration(...)</code> and no <code>.intervalFunction(...)</code>.
+<!-- tooltip end -->
+<p>When many instances retry on the same schedule, they hit the struggling service at the same moments and can keep
+it down (the "thundering herd" effect).</p>
+</body>
+</html>
